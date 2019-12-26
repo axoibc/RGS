@@ -6,9 +6,9 @@ This project is to create an open sourced Remote Gaming Server for use in iGamin
 Step 1: PRNG - the pseudo random number generator is the backbone of the entire system. Python has an excellent random number generator however most jurisidctions will not allow its use as over time it can be predicatble. So in comes the Secrets module with its Cryptographically secure PRNG which is much harder to predict over long periods of time (on Linux systems its just a wrapper around system random which utilizes hardware to generate random numbers.) Mersenne Twister is NOT used specifically because some jurisdictions don't allow its use and I wanted to be able to run in any jurisdiction.
 
 This API will closely follow the python secrets module. For our purposes we need three main endpoints:
-1. distrubution from n to m - used to calculate a random number between n upto but NOT including m.
-2. weighted distrubution given an array of values and weights. For eample: [[1,500],[2,1000],[3,200],[4,700]]
-3. shuffle for which I'll implement the Fisher-Yates algorithm here: https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+1. Range from n to m - used to calculate a random number between n up to but NOT including m.
+2. weighted distribution given an array of values and weights. For example: [[1,500],[2,1000],[3,200],[4,700]]
+3. shuffle for which I'll use the secrets Sample method.
 
 I may add a few more endpoints should I add a game which requires some specific functionality.
 

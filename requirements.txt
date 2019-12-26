@@ -1,0 +1,4 @@
+pytest
+werkzeug
+click
+flask
