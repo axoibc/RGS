@@ -1,15 +1,24 @@
 import os
 
 from flask import Flask
+from flask_restplus import Api
+from .api.prng import bp, ns as prng_ns
 
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
+    api = Api(app=app, version='1.0', title='Remote Gaming Server API', description='RGS API', ui=True)
+
+    ns = api.namespace('rng', description='PRNG operations')
+
+    app.logger.info("Starting up")
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'app.sqlite'),
-        LOG_LEVEL="ERROR"
+        LOG_LEVEL="ERROR",
+        SWAGGER_URL="/swagger",
+        API_URL="/static/swagger.json",
     )
 
     if test_config is None:
@@ -25,12 +34,9 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    from . import auth
-    app.register_blueprint(auth.bp)
+    app.register_blueprint(bp)
+    api.add_namespace(prng_ns)
 
-    from . import prng
-    app.register_blueprint(prng.bp)
-    # app.add_url_rule('/rng', endpoint='get_range')
+    app.run(debug=True)
 
     return app
-

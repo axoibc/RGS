@@ -2,3 +2,5 @@ pytest
 werkzeug
 click
 flask
+flask_swagger_ui
+flask-restplus
