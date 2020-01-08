@@ -76,8 +76,8 @@ class Distribution(Resource):
     def get(self, distribution):
         """
         Returns a random value from a weighted distribution
-        :param distribution: 2D array ([[x, y]...]) where x is the weight of the value y.
-        :return: Random y value
+        :param distribution: 2D array ([[x, y]...]) where x is the value and y is the weight.
+        :return: Random x value
         """
         try:
             dist_list = json.loads(distribution)

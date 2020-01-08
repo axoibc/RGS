@@ -21,3 +21,7 @@ def close_db(e=None):
 
     if db is not None:
         db.close()
+
+
+def get_play(player, game):
+    pass
