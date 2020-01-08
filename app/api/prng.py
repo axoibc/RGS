@@ -64,3 +64,44 @@ class Shuffle(Resource):
         except Exception as error:
             abort(403, "Bad Request")
             current_app.logger.critcial(error, exc_info=True)
+
+
+@ns.route("/distribution/<distribution>", methods=["GET"])
+class Distribution(Resource):
+
+    @api.doc(responses={200: 'OK', 400: 'Bad Request', 500: 'General Error'},
+             params={'distribution': 'The array to values and weights'},
+             example={"[[1,10],[5,20],[3,30]]"}
+             )
+    def get(self, distribution):
+        """
+        Returns a random value from a weighted distribution
+        :param distribution: 2D array ([[x, y]...]) where x is the weight of the value y.
+        :return: Random y value
+        """
+        try:
+            dist_list = json.loads(distribution)
+
+            if type(dist_list) is not list:
+                raise TypeError("Distribution is not a list")
+
+            # Find the total weight of the distribution
+            distribution_max = 0
+
+            for i in range(len(dist_list)):
+                distribution_max += dist_list[i][1]
+
+            # Generate a random number between [0, distribution_max)
+            random_num = secrets.SystemRandom().randrange(0, distribution_max)
+            distribution_value = 0
+
+            # Find and return the weighted value from the distribution
+            for i in range(len(dist_list)):
+                distribution_value += dist_list[i][1]
+
+                if random_num < distribution_value:
+                    return dist_list[i][0]
+
+        except Exception as error:
+            abort(403, "Bad Request")
+            current_app.logger.exception(error, exc_info=True)
