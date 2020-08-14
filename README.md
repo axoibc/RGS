@@ -7,8 +7,8 @@ Step 1: PRNG - the pseudo random number generator is the backbone of the entire 
 
 This API will closely follow the python secrets module. For our purposes we need three main endpoints:
 1. Range from n to m - used to calculate a random number between n up to but NOT including m.
-2. weighted distribution given an array of values and weights. For example: [[1,500],[2,1000],[3,200],[4,700]]
-3. shuffle for which I'll use the secrets Sample method.
+2. A weighted distribution given an array of values and weights. For example: [[1,500],[2,1000],[3,200],[4,700]]
+3. A shuffle array for which I'll use the secrets Sample method.
 
 I may add a few more endpoints should I add a game which requires some specific functionality.
 
