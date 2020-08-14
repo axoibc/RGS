@@ -13,7 +13,7 @@ This API will closely follow the python secrets module. For our purposes we need
 I may add a few more endpoints should I add a game which requires some specific functionality.
 
 Step 2: Server - expose a series of APIs which allow interaction with the various game stages. For my purposes this includes the following endpoints:
-1. player - verify player session information with the backend and update their wallet informaiton.
+1. init - verify player session information with the backend and update their wallet informaiton.
 2. escrow - wage funds (place them in escrow) pending the outcome of the game. On failure these funds are returned to the player.
 3. result - report the games result to the backend. On success the escrowed amount is deducted from the player's balance. 
 4. cancel - cancel an escrow amount which returns the funds to the player's wallet.
